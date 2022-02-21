@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  time_in: 2022-02-21 21:48:50
+  time_out: 2022-02-21 21:48:50
+  mobile_phone: MyString
+
+two:
+  name: MyText
+  time_in: 2022-02-21 21:48:50
+  time_out: 2022-02-21 21:48:50
+  mobile_phone: MyString
