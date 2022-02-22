@@ -3,7 +3,11 @@ class EntriesController < ApplicationController
 
   # GET /entries or /entries.json
   def index
-    @entries = Entry.all
+    if params['search']
+      @entries = Entry.where(name: params['search'] )
+    else
+      @entries = Entry.where(time_out: nil)
+    end
   end
 
   # GET /entries/1 or /entries/1.json
@@ -12,7 +16,7 @@ class EntriesController < ApplicationController
 
   # GET /entries/new
   def new
-    @entry = Entry.new
+    @entry = Entry.new()
   end
 
   # GET /entries/1/edit
@@ -65,6 +69,10 @@ class EntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def entry_params
-      params.require(:entry).permit(:name, :time_in, :time_out, :mobile_phone)
+      params.require(:entry).permit(:name, :time_in, :time_out, :mobile_phone).tap do |entries_params|
+        entries_params.require(:name)
+        entries_params.require(:time_in)
+        entries_params.require(:mobile_phone)
+      end
     end
 end
