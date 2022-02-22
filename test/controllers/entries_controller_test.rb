@@ -3,6 +3,10 @@ require "test_helper"
 class EntriesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @entry = entries(:one)
+    @entry.name = 'jason'
+    @entry.mobile_phone = '07243549123'
+    @entry.time_in = DateTime.now
+    @entry.time_out = DateTime.now
   end
 
   test "should get index" do
