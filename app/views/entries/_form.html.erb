@@ -18,12 +18,12 @@
 
   <div>
     <%= form.label :time_in, style: "display: block" %>
-    <%= form.datetime_field :time_in %>
+    <%= form.datetime_field :time_in,min:DateTime.now,value:DateTime.now.strftime('%FT%T') %>
   </div>
 
   <div>
     <%= form.label :time_out, style: "display: block" %>
-    <%= form.datetime_field :time_out %>
+    <%= form.datetime_field :time_out ,value:DateTime.now%>
   </div>
 
   <div>
