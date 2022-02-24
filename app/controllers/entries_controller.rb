@@ -3,11 +3,7 @@ class EntriesController < ApplicationController
 
   # GET /entries or /entries.json
   def index
-    if params[:search]
-      @entries = Entry.where(name: params[:search] )
-    else
       @entries = Entry.all
-    end
   end
 
   # GET /entries/1 or /entries/1.json
@@ -61,6 +57,17 @@ class EntriesController < ApplicationController
     end
   end
 
+  def retrieve
+  end
+
+  def search
+    if params[:search]
+      @entries = Entry.where(name: params[:search] )
+    else params[:search].blank?
+      redirect_to :controller => :entries,action: :new
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_entry
@@ -69,9 +76,6 @@ class EntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def entry_params
-      unless params[:time_out]
-        params[:time_out] = DateTime.now
-      end
       parameters = params.require(:entry).permit(:name, :time_in, :time_out, :mobile_phone,:search)
       puts parameters.to_h.to_s
       return parameters
