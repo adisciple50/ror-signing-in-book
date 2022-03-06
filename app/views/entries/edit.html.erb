@@ -3,7 +3,11 @@
 <%= render "form", entry: @entry %>
 
 <br>
-
+<div>
+  <div>
+    <%= button_to "Sign Out",entry_path({entry:{time_out:DateTime.now}}),method: :patch %>
+  </div>
+</div>
 <div>
   <%= link_to "Show this entry", @entry %> |
   <%= link_to "Back to entries", entries_path %>
