@@ -61,6 +61,8 @@ class AdminsController < ApplicationController
   def login
     if login!(params['username'],params['password'])
       redirect_to :controller => :entries,action: :index
+    else
+      redirect_to admins_url
     end
   end
   def logout
@@ -89,9 +91,9 @@ class AdminsController < ApplicationController
 
   def login!(username,password)
     @@user = Admin.find_by(username:username)
-    if @@user.authenticate(password)
+    if @@user&.authenticate(password)
       # eliminate dup tokens
-      @@unique_token = @@token
+      @@unique_token = generate_unique_token
       @@user.token = @@unique_token
       @@user.save
       session['username'] = @@user.username
