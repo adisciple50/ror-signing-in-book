@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RorSigningInBook</title>
+    <title>Signing In Book</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,16 @@
   </head>
 
   <body>
+  <% flash.each do |type, msg| %>
+    <div>
+      <%= msg %>
+    </div>
+  <% end %>
+  <nav class="nav">
+    <a class="nav-link" href="<%= root_url %>">Home</a>
+    <a class="nav-link" href="<%= url_for controller: "admins",action: "index" %>">Admins</a>
+
+  </nav>
     <%= yield %>
   </body>
 </html>

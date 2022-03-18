@@ -1,5 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: %i[ show edit update destroy ]
+  before_action :reject_if_not_authorized, only: %i[ show edit update destroy logout ]
+
 
   # GET /admins or /admins.json
   def index
@@ -22,7 +24,6 @@ class AdminsController < ApplicationController
   # POST /admins or /admins.json
   def create
     @admin = Admin.new(admin_params)
-
     respond_to do |format|
       if @admin.save
         format.html { redirect_to admin_url(@admin), notice: "Admin was successfully created." }
@@ -57,14 +58,58 @@ class AdminsController < ApplicationController
     end
   end
 
+  def login
+    if login!(params['username'],params['password'])
+      redirect_to :controller => :entries,action: :index
+    end
+  end
+  def logout
+    logout!
+    redirect_to root_url
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_admin
-      @admin = Admin.find(params[:id])
-    end
+  def set_admin
+    @admin = Admin.find(params[:id])
+  end
 
     # Only allow a list of trusted parameters through.
-    def admin_params
-      params.require(:admin).permit(:username, :pass)
+  def admin_params
+    params.require(:admin).permit(:username, :password)
+  end
+
+  def generate_unique_token
+    @@token = SecureRandom::uuid
+    while User.find_by(token:@@token)&.exists?
+      @@token = SecureRandom::uuid
     end
+    return @@token
+  end
+
+  def login!(username,password)
+    @@user = Admin.find_by(username:username)
+    if @@user.authenticate(password)
+      # eliminate dup tokens
+      @@unique_token = @@token
+      @@user.token = @@unique_token
+      @@user.save
+      session['username'] = @@user.username
+      session['token'] =  @@unique_token
+      return true
+    else
+      flash.alert= 'username and password combo is wrong'
+      return false
+    end
+
+  end
+  def log_out!
+    user = Admin.find_by(username:session['username'],token:session['token'])
+    if user&.exists?
+      user.token = nil
+      user.save
+      session['username'] = nil
+      session['token'] = nil
+    end
+  end
 end

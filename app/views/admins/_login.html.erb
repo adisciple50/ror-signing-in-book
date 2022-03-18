@@ -1,0 +1,7 @@
+<%= form_with url: '/login', method:'post' do |login_form| %>
+  <%= login_form.label :username, 'Username' %>
+  <%= login_form.text_field :username%>
+  <%= login_form.label :password, 'Password' %>
+  <%= login_form.password_field :password %>
+  <%= login_form.submit "Attempt Login" %>
+<% end %>

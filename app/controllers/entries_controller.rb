@@ -3,11 +3,20 @@ class EntriesController < ApplicationController
 
   # GET /entries or /entries.json
   def index
+    if logged_in?
       @entries = Entry.all
+    else
+      redirect_to root_path
+    end
   end
 
   # GET /entries/1 or /entries/1.json
   def show
+    if session['search'] || logged_in?
+      render(:edit, status: :ok, location: @entry)
+    else
+      flash.alert = 'You must search for your name or be an admin to view this(case sensative)'
+    end
   end
 
   # GET /entries/new
@@ -62,7 +71,8 @@ class EntriesController < ApplicationController
 
   def search
     if params[:search]
-      @entries = Entry.where(name: params[:search] )
+      @entry = Entry.find_by(name: params[:search])
+      redirect_to entry_url @entry
     else params[:search].blank?
       redirect_to :controller => :entries,action: :new
     end
@@ -77,7 +87,9 @@ class EntriesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def entry_params
       parameters = params.require(:entry).permit(:name, :time_in, :time_out, :mobile_phone,:search)
-      puts parameters.to_h.to_s
+      # puts parameters.to_h.to_s
       return parameters
     end
+
+
 end
