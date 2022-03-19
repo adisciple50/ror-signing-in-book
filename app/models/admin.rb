@@ -1,7 +1,9 @@
 class Admin < ApplicationRecord
   include ActiveModel::SecurePassword
-  validates :password_digest, presence: true, :on => :save
-  validates :username, uniqueness: true
   has_secure_password
-  attr_accessor :password_digest
+  validates :username, uniqueness: true
+  validates :username, presence: true
+  validates :password, presence: true
+  validates :password_digest, presence: true, :on => :save
+  # attr_accessor :password_digest # gotcha you pesky bug!
 end
