@@ -86,7 +86,7 @@ class AdminsController < ApplicationController
     while User.find_by(token:@@token)&.exists?
       @@token = SecureRandom::uuid
     end
-    return 'test' #TODO - change this to @@token
+    return @@token
   end
 
   def login!(username,password)
@@ -94,22 +94,24 @@ class AdminsController < ApplicationController
     if @@user&.authenticate(password)
       # eliminate dup tokens
       @@unique_token = generate_unique_token
-      @@user.update!(token:@@unique_token)
-      session['username'] = @@user.username
-      session['token'] =  @@unique_token
+      @@user.token = @@unique_token
+      @@user.save
+      session["username"] = @@user.username
+      session["token"] =  @@unique_token
       return true
     else
+      flash.alert= 'username and password combo is wrong'
       return false
     end
 
   end
   def log_out!
-    user = Admin.find_by(username:session['username'],token:session['token'])
+    user = Admin.find_by(username:session["username"],token:session["token"])
     if user&.exists?
       user.token = nil
       user.save
-      session['username'] = nil
-      session['token'] = nil
+      session["username"] = nil
+      session["token"] = nil
     end
   end
 end
