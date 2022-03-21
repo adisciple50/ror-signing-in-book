@@ -88,7 +88,7 @@ class EntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def entry_params
-      parameters = params.require(:entry).permit(:name, :time_in, :time_out, :mobile_phone,:search)
+      parameters = params.require(:entry).permit(:name, :time_in, :time_out, :mobile_phone,:search,admins_attributes: admins_attributes)
       # puts parameters.to_h.to_s
       return parameters
     end

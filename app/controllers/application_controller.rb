@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   private
   def logged_in?
-    Admin.find_by(username: session['username'],token:session['token'])&.exists?
+    Admin.find_by(username: session["username"],token:session["token"])&.valid?
   end
   def reject_if_not_authorized
     if not logged_in?

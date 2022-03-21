@@ -59,7 +59,7 @@ class AdminsController < ApplicationController
   end
 
   def login
-    if login!(params['username'],params['password'])
+    if login!(params["username"],params["password"])
       redirect_to :controller => :entries,action: :index
     else
       redirect_to admins_url
@@ -78,15 +78,15 @@ class AdminsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
   def admin_params
-    params.require(:admin).permit(:username, :password)
+    params.require(:admin).permit(:username, :password,:token)
   end
 
   def generate_unique_token
     @@token = SecureRandom::uuid
-    while User.find_by(token:@@token)&.exists?
+    while Admin.find_by(token:@@token)&.exists?
       @@token = SecureRandom::uuid
     end
-    return @@token
+    return 'test' #TODO - Change this asap
   end
 
   def login!(username,password)
@@ -97,7 +97,7 @@ class AdminsController < ApplicationController
       @@user.token = @@unique_token
       @@user.save
       session["username"] = @@user.username
-      session["token"] =  @@unique_token
+      session["token"] =  @@unique_token # TODO - NOT WORKING!
       return true
     else
       flash.alert= 'username and password combo is wrong'
