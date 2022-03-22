@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: %i[ show edit update destroy ]
-  # before_action :reject_if_not_authorized, only: %i[ show edit update destroy logout ]
+  before_action :reject_if_not_authorized, only: %i[ show edit update destroy logout ]
 
 
   # GET /admins or /admins.json
