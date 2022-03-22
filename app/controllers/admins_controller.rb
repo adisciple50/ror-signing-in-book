@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: %i[ show edit update destroy ]
-  before_action :reject_if_not_authorized, only: %i[ show edit update destroy logout ]
+  # before_action :reject_if_not_authorized, only: %i[ show edit update destroy logout ]
 
 
   # GET /admins or /admins.json
@@ -89,13 +89,18 @@ class AdminsController < ApplicationController
     return 'test' #TODO - Change this asap
   end
 
+  # quick and dirty workaround to save and update not working
+  # only to be used for authenticated users!
+  def update_token(username,new_token)
+    ActiveRecord::Base.connection.execute("UPDATE admins SET token = '#{@@unique_token}' WHERE username = '#{username}'")
+  end
+
   def login!(username,password)
     @@user = Admin.find_by(username:username)
     if @@user&.authenticate(password)
       # eliminate dup tokens
       @@unique_token = generate_unique_token
-      @@user.token = @@unique_token
-      @@user.save
+      update_token username,@@unique_token
       session["username"] = @@user.username
       session["token"] =  @@unique_token # TODO - NOT WORKING!
       return true
@@ -107,11 +112,11 @@ class AdminsController < ApplicationController
   end
   def log_out!
     user = Admin.find_by(username:session["username"],token:session["token"])
-    if user&.exists?
-      user.token = nil
-      user.save
-      session["username"] = nil
-      session["token"] = nil
+    logged_out_token = nil
+    if user&.valid?
+      update_token user.username,logged_out_token
+      session["username"] = logged_out_token
+      session["token"] = logged_out_token
     end
   end
 end
