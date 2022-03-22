@@ -102,10 +102,9 @@ class AdminsController < ApplicationController
       @@unique_token = generate_unique_token
       update_token username,@@unique_token
       session["username"] = @@user.username
-      session["token"] =  @@unique_token # TODO - NOT WORKING!
+      session["token"] =  @@unique_token
       return true
     else
-      flash.alert= 'username and password combo is wrong'
       return false
     end
 
@@ -113,7 +112,7 @@ class AdminsController < ApplicationController
   def log_out!
     user = Admin.find_by(username:session["username"],token:session["token"])
     logged_out_token = nil
-    if user&.valid?
+    if user
       update_token user.username,logged_out_token
       session["username"] = logged_out_token
       session["token"] = logged_out_token
