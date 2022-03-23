@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
   before_action :set_entry, only: %i[ show edit update destroy ]
-  before_action :reject_if_not_authorized, :only => %i[ show index edit update destroy ]
+  before_action :reject_if_not_authorized, :only => %i[ show index edit create update destroy ]
 
   # GET /entries or /entries.json
   def index
