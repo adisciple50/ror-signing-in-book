@@ -66,7 +66,7 @@ class AdminsController < ApplicationController
     end
   end
   def logout
-    logout!
+    logout!(session["username"])
     redirect_to root_url
   end
 
@@ -92,7 +92,11 @@ class AdminsController < ApplicationController
   # quick and dirty workaround to save and update not working
   # only to be used for authenticated users!
   def update_token(username,new_token)
-    ActiveRecord::Base.connection.execute("UPDATE admins SET token = '#{@@unique_token}' WHERE username = '#{username}'")
+    ActiveRecord::Base.connection.execute("UPDATE admins SET token = '#{new_token}' WHERE username = '#{username}'")
+  end
+
+  def logout!(username)
+    ActiveRecord::Base.connection.execute("UPDATE admins SET token = NULL WHERE username = '#{username}'")
   end
 
   def login!(username,password)
@@ -109,9 +113,9 @@ class AdminsController < ApplicationController
     end
 
   end
-  def log_out!
-    user = Admin.find_by(username:session["username"],token:session["token"])
-    logged_out_token = nil
+  def log_out!(username)
+    user = Admin.find_by(username:username)
+    logged_out_token = 'logged_out'
     if user
       update_token user.username,logged_out_token
       session["username"] = logged_out_token
