@@ -64,11 +64,6 @@ class EntriesController < ApplicationController
     end
   end
 
-  def retrieve
-  end
-
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_entry
@@ -81,6 +76,4 @@ class EntriesController < ApplicationController
       # puts parameters.to_h.to_s
       return parameters
     end
-
-
 end
