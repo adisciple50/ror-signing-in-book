@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "entries#new"
-  get '/retrieve',to: "search#search"
+  get '/search',to: "search#search"
   get '/retrieve',to: "search#view"
   # get '/login', to: redirect('/admins')
   # get '/logout', to: redirect('/admins')

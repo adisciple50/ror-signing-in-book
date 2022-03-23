@@ -13,14 +13,7 @@ class EntriesController < ApplicationController
   end
 
   # GET /entries/1 or /entries/1.json
-  def show
-    if logged_in?
-      session['search'] = nil # to disallow further views
-      render(:edit, status: :ok, location: @entry)
-    else
-      flash.alert = 'You must search for your name or be an admin to view this(case sensative)'
-    end
-  end
+
 
   # GET /entries/new
   def new
