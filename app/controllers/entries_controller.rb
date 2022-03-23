@@ -14,7 +14,8 @@ class EntriesController < ApplicationController
 
   # GET /entries/1 or /entries/1.json
   def show
-    if session['search'] || logged_in?
+    if logged_in?
+      session['search'] = nil # to disallow further views
       render(:edit, status: :ok, location: @entry)
     else
       flash.alert = 'You must search for your name or be an admin to view this(case sensative)'
@@ -71,14 +72,7 @@ class EntriesController < ApplicationController
   def retrieve
   end
 
-  def search
-    if params[:search]
-      @entry = Entry.find_by(name: params[:search])
-      redirect_to entry_url @entry
-    else params[:search].blank?
-      redirect_to :controller => :entries,action: :new
-    end
-  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -1,4 +1,3 @@
-<% if logged_in? session['username'],session['token'] %>
 <div id="<%= dom_id entry %>">
   <p>
     <strong>Name:</strong>
@@ -22,6 +21,3 @@
 
 
 </div>
-  <% else%>
-  <p>Not Logged In</p>
-<% end %>
