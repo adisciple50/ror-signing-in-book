@@ -19,8 +19,7 @@
   <nav class="nav">
     <a class="nav-link" href="<%= root_url %>">Home</a>
     <a class="nav-link" href="<%= url_for controller: "admins",action: "index" %>">Admins</a>
-    <a class="nav-link" href="<%= url_for controller: "admins",action: "logout",method: :post %>">Logout</a>
-    <%= link_to "Logout",:controller => :admins,action: :logout,method: :post %>
+    <a class="nav-link" href="<%= url_for controller: "admins",action: "logout" %>">Logout</a>
 
   </nav>
   <%= debug(params) if Rails.env == 'development' %>

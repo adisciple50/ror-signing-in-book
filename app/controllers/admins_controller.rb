@@ -82,11 +82,7 @@ class AdminsController < ApplicationController
   end
 
   def generate_unique_token
-    @@token = SecureRandom::uuid
-    while Admin.find_by(token:@@token)&.exists?
-      @@token = SecureRandom::uuid
-    end
-    return 'test' #TODO - Change this asap
+    return SecureRandom::uuid
   end
 
   # quick and dirty workaround to save and update not working
