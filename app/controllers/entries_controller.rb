@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
   before_action :set_entry, only: %i[ show edit update destroy ]
-  before_action :reject_if_not_authorized, :only => %i[ show index edit create update destroy ]
+  before_action :reject_if_not_authorized, :only => %i[ show index edit update destroy ]
 
   # GET /entries or /entries.json
   def index
@@ -72,7 +72,7 @@ class EntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def entry_params
-      parameters = params.require(:entry).permit(:name, :time_in, :time_out, :mobile_phone,:search,admins_attributes: admins_attributes)
+      parameters = params.require(:entry).permit(:name, :time_in, :time_out, :mobile_phone,:search)
       # puts parameters.to_h.to_s
       return parameters
     end
