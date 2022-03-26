@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_21_005639) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_26_130258) do
   create_table "admins", force: :cascade do |t|
     t.text "username", null: false
     t.text "password_digest", null: false
@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_005639) do
     t.string "mobile_phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "username", null: false
   end
 
 end
