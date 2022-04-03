@@ -7,6 +7,10 @@ class EntriesController < ApplicationController
     if logged_in?
       flash.alert = 'Login Successful'
       @entries = Entry.all
+      respond_to do |format|
+        format.html
+        format.turbo_stream
+      end
     else
       flash.alert = 'Login Unsuccessful'
       redirect_to root_path

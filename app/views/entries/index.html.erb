@@ -2,13 +2,15 @@
 
 <h1>Entries</h1>
 
+<%= turbo_stream_from "entries" %>
 <div id="entries">
   <% @entries.each do |entry| %>
     <%= render entry %>
-    <p>
-      <%= link_to "Show this entry", entry %>
-    </p>
+
   <% end %>
 </div>
+
+
+
 
 <%= link_to "New entry", new_entry_path %>
