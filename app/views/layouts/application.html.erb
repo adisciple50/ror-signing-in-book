@@ -12,17 +12,24 @@
 
   <body>
   <% flash.each do |type, msg| %>
-    <div>
-      <%= msg %>
+    <div class="container">
+      <div class="text-center w-100">
+        <%= msg %>
+      </div>
     </div>
   <% end %>
-  <nav class="nav">
+  <nav class="nav container justify-content-center align-middle">
     <a class="nav-link" href="<%= root_url %>">Home</a>
     <a class="nav-link" href="<%= url_for controller: "admins",action: "index" %>">Admins</a>
-    <a class="nav-link" href="<%= url_for controller: "admins",action: "logout" %>">Logout</a>
+    <% if logged_in? session['username'],session['token'] %>
+      <a class="nav-link" href="<%= url_for controller: "entries",action: "index" %>">View All Entries</a>
+      <a class="nav-link" href="<%= url_for controller: "admins",action: "logout" %>">Logout</a>
+    <% end %>
     <%= render 'search/search' %>
   </nav>
   <%= debug(params) if Rails.env == 'development' %>
+  <div class="container">
     <%= yield %>
+  </div>
   </body>
 </html>
