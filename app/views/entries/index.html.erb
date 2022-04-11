@@ -4,7 +4,8 @@
 
 <%= turbo_stream_from "entries" %>
 <div id="entries">
-  <% @entries.each do |entry| %>
+  <%# reverse shows the latest first %>
+  <% @entries.reverse.each do |entry| %>
     <%= render entry %>
 
   <% end %>
