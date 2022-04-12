@@ -5,7 +5,7 @@ class EntriesController < ApplicationController
   # GET /entries or /entries.json
   def index
     if logged_in?
-      flash.alert = 'Login Successful'
+      flash.alert = 'Admin Mode'
       @entries = Entry.all
       respond_to do |format|
         format.html

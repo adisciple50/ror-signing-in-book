@@ -1,17 +1,25 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Entries</h1>
+<h1 class="text-center">Entries</h1>
 
+<section>
 <%= turbo_stream_from "entries" %>
-<div id="entries">
+<table id="entries" class="w-100">
+  <tr class="text-center">
+    <th>Name</th>
+    <th>Time In</th>
+    <th>Time Out</th>
+    <th>Mobile Phone</th>
+  </tr>
   <%# reverse shows the latest first %>
   <% @entries.reverse.each do |entry| %>
     <%= render entry %>
 
   <% end %>
+</table>
+</section>
+
+
+<div class="justify-content-center text-center">
+<p><%= button_to "New entry", new_entry_path,class: "btn btn-primary" %></p>
 </div>
-
-
-
-
-<%= link_to "New entry", new_entry_path %>

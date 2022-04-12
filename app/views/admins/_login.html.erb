@@ -1,7 +1,9 @@
 <%= form_with url: '/login', method:'post' do |login_form| %>
-  <%= login_form.label :username, 'Username' %>
-  <%= login_form.text_field :username%>
-  <%= login_form.label :password, 'Password' %>
-  <%= login_form.password_field :password %>
-  <%= login_form.submit "Attempt Login" %>
+  <div class="d-flex flex-column">
+    <div class="flex-row"><%= login_form.label :username, 'Username' %></div>
+      <div class="flex-row"><%= login_form.text_field :username %></div>
+      <div class="flex-row"><%= login_form.label :password, 'Password' %></div>
+      <div class="flex-row"><%= login_form.password_field :password %></div>
+    <div class="flex-row"><%= login_form.submit "Attempt Login", class: "btn btn-primary mt-1" %></div>
+  </div>
 <% end %>

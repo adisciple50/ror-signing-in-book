@@ -1,20 +1,23 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Admins</h1>
+<h1 class="text-center">Admins</h1>
 
 <% if !logged_in? session['username'],session['token']%>
-  <%= render 'login' %>
+  <div class="text-center">
+    <%= render 'login' %>
+  </div>
 <% end %>
 
 <% if logged_in?(session['username'],session['token'])%>
-<div id="admins">
+<table id="admins" class="w-100">
+  <tr class="text-center">
+    <th>Username</th>
+  </tr>
   <% @admins.each do |admin| %>
     <%= render admin %>
-    <p>
-      <%= link_to "Show this admin", admin %>
-    </p>
   <% end %>
+</table>
+<div class="justify-content-center text-center mt-xl">
+  <%= button_to "New admin", new_admin_path, class: "btn btn-primary" %>
 </div>
-
-<%= link_to "New admin", new_admin_path %>
 <% end %>

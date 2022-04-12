@@ -1,12 +1,14 @@
-<div id="<%= dom_id admin %>">
-  <p>
-    <strong>Username:</strong>
+<tr id="<%= dom_id admin %>" class="text-center">
+  <td>
     <%= admin.username %>
-  </p>
+  </td>
+  <td>
+    <%= link_to "Show this admin", admin %>
+  </td>
 
 <!--  <p>-->
 <!--    <strong>Pass:</strong>-->
     <%#= admin.password %>
 <!--  </p>-->
 
-</div>
+</tr>
