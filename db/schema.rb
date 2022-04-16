@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_26_130258) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_16_122343) do
   create_table "admins", force: :cascade do |t|
     t.text "username", null: false
     t.text "password_digest", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_26_130258) do
     t.datetime "updated_at", null: false
     t.string "recovery_pass"
     t.string "token"
+    t.boolean "superuser"
   end
 
   create_table "entries", force: :cascade do |t|

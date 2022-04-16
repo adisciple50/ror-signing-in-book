@@ -8,4 +8,9 @@ class ApplicationController < ActionController::Base
       redirect_to root_url
     end
   end
+  def reject_if_not_superuser
+    if !logged_in?&.superuser || Admin.all.any?
+      redirect_to root_url
+    end
+  end
 end

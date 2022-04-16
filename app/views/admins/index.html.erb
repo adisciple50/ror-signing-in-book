@@ -8,7 +8,7 @@
   </div>
 <% end %>
 
-<% if logged_in?(session['username'],session['token'])%>
+<% if logged_in?(session['username'],session['token'])&.superuser%>
 <table id="admins" class="w-100">
   <tr class="text-center">
     <th>Username</th>

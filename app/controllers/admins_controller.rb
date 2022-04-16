@@ -1,6 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: %i[ show edit update destroy ]
   before_action :reject_if_not_authorized, only: %i[ show edit update destroy logout ]
+  before_action :reject_if_not_superuser, only: %i[ new show edit update destroy ]
 
 
   # GET /admins or /admins.json
@@ -61,6 +62,7 @@ class AdminsController < ApplicationController
     end
   end
 
+  #TODO - redirects to admin page regardless of successful login
   def login
     if login!(params["username"],params["password"])
       redirect_to :controller => :entries,action: :index
