@@ -17,8 +17,13 @@
   </div>
 
   <div>
-    <%= form.label :pass, style: "display: block" %>
+    <%= form.label :password, style: "display: block" %>
     <%= form.text_field :password %>
+  </div>
+
+  <div>
+    <%= form.label :superuser, style: "display: block" %>
+    <%= form.check_box :superuser %>
   </div>
 
   <div>

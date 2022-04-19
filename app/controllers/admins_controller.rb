@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: %i[ show edit update destroy ]
-  before_action :reject_if_not_authorized, only: %i[ show edit update destroy logout ]
+  before_action :reject_if_not_authorized, only: %i[ logout ]
   before_action :reject_if_not_superuser, only: %i[ new show edit update destroy ]
 
 
@@ -11,9 +11,6 @@ class AdminsController < ApplicationController
 
   # GET /admins/1 or /admins/1.json
   def show
-    if !logged_in?
-      redirect_to root_url
-    end
   end
 
   # GET /admins/new
@@ -67,7 +64,7 @@ class AdminsController < ApplicationController
     if login!(params["username"],params["password"])
       redirect_to :controller => :entries,action: :index
     else
-      redirect_to admins_url
+      redirect_to admins_url # calls this when true? whats going on!
     end
   end
   def logout
@@ -101,13 +98,13 @@ class AdminsController < ApplicationController
   end
 
   def login!(username,password)
-    @@user = Admin.find_by(username:username)
-    if @@user&.authenticate(password)
+    user = Admin.find_by(username:username)
+    if user&.authenticate(password)
       # eliminate dup tokens
-      @@unique_token = generate_unique_token
-      update_token username,@@unique_token
-      session["username"] = @@user.username
-      session["token"] =  @@unique_token
+      unique_token = generate_unique_token
+      update_token username,unique_token # i could use user.username but i wont because i think its quicker
+      session["username"] = user.username
+      session["token"] =  unique_token
       return true
     else
       return false
