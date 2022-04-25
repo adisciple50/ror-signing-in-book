@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   get '/retrieve',to: "search#view"
   # get '/login', to: redirect('/admins')
   # get '/logout', to: redirect('/admins')
-  post '/login',to: 'admins#login'
-  get '/logout',to: 'admins#logout'
+  post '/login',to: 'authentication#login'
+  get '/logout',to: 'authentication#logout'
 end
