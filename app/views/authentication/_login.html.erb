@@ -1,4 +1,4 @@
-<%= form_with url: '/login', method:'post' do |login_form| %>
+<%= form_with url: '/authenticate', method:'post' do |login_form| %>
   <div class="d-flex flex-column">
     <div class="flex-row"><%= login_form.label :username, 'Username' %></div>
       <div class="flex-row"><%= login_form.text_field :username %></div>
