@@ -2,12 +2,6 @@
 
 <h1 class="text-center">Admins</h1>
 
-<% if !logged_in? session['username'],session['token']%>
-  <div class="text-center">
-    <%= render 'login' %>
-  </div>
-<% end %>
-
 <% if logged_in?(session['username'],session['token'])&.superuser%>
 <table id="admins" class="w-100">
   <tr class="text-center">
