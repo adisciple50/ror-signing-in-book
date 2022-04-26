@@ -1,17 +1,25 @@
 class AuthenticationController < ApplicationController
   #TODO - redirects to admin page regardless of successful login
+
   def login
+  end
+
+  def authenticate
     if login!(params["username"],params["password"])
-      redirect_to :controller => :entries,action: :index
+      # flash.alert "Incorrect Login or Password"
+      redirect_to entries_path ,alert: "Successfully Logged In"
     else
-      redirect_to admins_url # calls this when true? whats going on!
+      redirect_to :controller => :authentication,action: :login,alert: "Incorrect Username or Password" # calls this when true? whats going on!
     end
   end
   def logout
     logout!(session["username"])
     redirect_to root_url
   end
+
   private
+
+
   def admin_params
     params.require(:admin).permit(:username, :password,:token)
   end
@@ -31,17 +39,20 @@ class AuthenticationController < ApplicationController
   end
 
   def login!(username,password)
-    user = Admin.find_by(username:username)
-    if user&.authenticate(password)
-      # eliminate dup tokens
-      unique_token = generate_unique_token
-      update_token username,unique_token # i could use user.username but i wont because i think its quicker
-      session["username"] = user.username
-      session["token"] =  unique_token
-      return true
-    else
-      return false
-    end
+    # user = Admin.find_by(username:username)
+    # if user
+    #   if user.authenticate(password)
+        # unique_token = generate_unique_token
+        # update_token username,unique_token # i could use user.username but i wont because i think its quicker
+        # session["username"] = user.username
+        # session["token"] =  unique_token
+        # return true
+      # else
+      #   return false
+      # end
+    # end
+    true
+  end
 
   end
   def log_out!(username)
@@ -53,4 +64,3 @@ class AuthenticationController < ApplicationController
       session["token"] = logged_out_token
     end
   end
-end
