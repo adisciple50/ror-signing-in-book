@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'authentication/login'
-  get 'authentication/logout'
   get 'search/search'
   get 'search/view'
   resources :admins

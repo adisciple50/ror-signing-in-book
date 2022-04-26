@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
   def reject_if_not_superuser
     # not nil returns true! fix this!
-    if !Admin.where(superuser: true).any? || !logged_in?&.superuser
+    unless !Admin.where(superuser: true).any? || logged_in?&.superuser
       redirect_to root_url
     end
   end

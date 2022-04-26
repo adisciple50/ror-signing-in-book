@@ -1,12 +1,13 @@
- <tr id="<%= dom_id entry %>" class="text-center">
+<% if entry %>
+<tr id="<%= dom_id entry %>" class="text-center">
   <td>
 
     <%= entry.name %>
   </td>
 
   <td>
-
-    <%= entry.time_in.localtime.strftime(" %d/%m/%Y %I:%M %p")%>
+    <%# entry.time_in.localtime.strftime(" %d/%m/%Y %I:%M %p")%>
+    <%= entry.time_in%>
   </td>
 
   <td>
@@ -24,3 +25,6 @@
     </td>
   <% end %>
  </tr>
+<% else %>
+  <h1> NO LOG ENTRIES FOUND </h1>
+<% end %>

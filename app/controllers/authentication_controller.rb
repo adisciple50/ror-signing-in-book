@@ -2,6 +2,10 @@ class AuthenticationController < ApplicationController
   #TODO - redirects to admin page regardless of successful login
 
   def login
+    if logged_in?
+      # flash.alert "Incorrect Login or Password"
+      redirect_to entries_path ,alert: "Successfully Logged In"
+    end
   end
 
   def authenticate
@@ -18,10 +22,8 @@ class AuthenticationController < ApplicationController
   end
 
   private
-
-
-  def admin_params
-    params.require(:admin).permit(:username, :password,:token)
+  def authentication_params
+    params.require(:authentication).permit(:username, :password,:token)
   end
 
   def generate_unique_token
@@ -39,19 +41,19 @@ class AuthenticationController < ApplicationController
   end
 
   def login!(username,password)
-    # user = Admin.find_by(username:username)
-    # if user
-    #   if user.authenticate(password)
-        # unique_token = generate_unique_token
-        # update_token username,unique_token # i could use user.username but i wont because i think its quicker
-        # session["username"] = user.username
-        # session["token"] =  unique_token
-        # return true
-      # else
-      #   return false
-      # end
-    # end
-    true
+    user = Admin.find_by(username:username)
+    if user
+      if user.authenticate(password)
+        unique_token = generate_unique_token
+        update_token username,unique_token # i could use user.username but i wont because i think its quicker
+        session["username"] = user.username
+        session["token"] =  unique_token
+        return true
+      else
+        return false
+      end
+    end
+    # true
   end
 
   end

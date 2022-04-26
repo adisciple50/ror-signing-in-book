@@ -66,6 +66,10 @@ class AdminsController < ApplicationController
     @admin = Admin.find(params[:id])
   end
 
+  def admin_params
+    params.require(:admin).permit(:username, :password,:token,:superuser)
+  end
+
     # Only allow a list of trusted parameters through.
 
 end
