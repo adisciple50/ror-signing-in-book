@@ -5,14 +5,12 @@ class EntriesController < ApplicationController
   # GET /entries or /entries.json
   def index
     if logged_in?
-      flash.alert = 'Admin Mode'
       @entries = Entry.all
       respond_to do |format|
         format.html
         format.turbo_stream
       end
     else
-      flash.alert = 'Login Unsuccessful'
       redirect_to root_path
     end
   end
