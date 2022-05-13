@@ -35,7 +35,7 @@ class EntriesController < ApplicationController
     respond_to do |format|
       if @entry.save
         flash[:notice] = "entry saved successfully"
-        format.html { redirect_to entry_url(@entry), notice: "Entry was successfully created." }
+        format.html { redirect_to entry_url(@entry) }
         format.json { render :show, status: :created, location: @entry }
       else
         # sloppy hacks but might work
