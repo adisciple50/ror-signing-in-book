@@ -38,7 +38,7 @@ class EntriesController < ApplicationController
         format.json { render :show, status: :created, location: @entry }
       else
         # sloppy hacks but might work
-        format.html { render :new, status: :unprocessable_entity,notice: "Entry was successfully saved" }
+        format.html { render :new, status: :unprocessable_entity,notice: "Entry was successfully saved " }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
