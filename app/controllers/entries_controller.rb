@@ -34,11 +34,12 @@ class EntriesController < ApplicationController
 
     respond_to do |format|
       if @entry.save
+        flash[:notice] = "entry saved successfully"
         format.html { redirect_to entry_url(@entry), notice: "Entry was successfully created." }
         format.json { render :show, status: :created, location: @entry }
       else
         # sloppy hacks but might work
-        format.html { render :new, status: :unprocessable_entity,notice: "Entry was successfully saved " }
+        format.html { render :new, status: :unprocessable_entity,notice: "Entry was unsuccessfully saved " }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
