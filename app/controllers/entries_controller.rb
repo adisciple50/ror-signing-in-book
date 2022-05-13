@@ -37,7 +37,8 @@ class EntriesController < ApplicationController
         format.html { redirect_to entry_url(@entry), notice: "Entry was successfully created." }
         format.json { render :show, status: :created, location: @entry }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        # sloppy hacks but might work
+        format.html { render :new, status: :unprocessable_entity,notice: "Entry was successfully saved" }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
