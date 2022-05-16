@@ -7,9 +7,9 @@ class AdminsController < ApplicationController
   # GET /admins or /admins.json
   def index
     @admins = Admin.all
-    # respond_to do |format|
-    #   format.turbo_stream
-    # end
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   # GET /admins/1 or /admins/1.json
