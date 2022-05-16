@@ -6,4 +6,5 @@ class Admin < ApplicationRecord
   validates :password, presence: true
   validates :password_digest, presence: true, :on => :save
   # attr_accessor :password_digest # gotcha you pesky bug!
+  broadcasts_to -> (index){:admin}
 end
