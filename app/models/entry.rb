@@ -4,6 +4,7 @@ class Entry < ApplicationRecord
   validates :username, presence: true
   validates :time_in,presence: true
   validates :name,presence: true
+  # no mobile phone specified due to the fact that a mobile phone may not be available.
   # after_save_commit -> { broadcast_prepend_to "entries", partial: "entries/entry", locals: { quote: self }, target: "entries" }
   # after_destroy_commit -> { broadcast_destroy_to "entries", partial: "entries/entry", locals: { quote: self }, target: "entries" }
   broadcasts_to -> (entry){:entries} #https://blog.corsego.com/turbo-hotwire-broadcasts
